@@ -15,6 +15,24 @@ class ToastMessage extends Component {
       }
     });
   }
+  showMessageSuccess(text, styles) {
+    this.setState({
+      message: {
+        text,
+        styles: ToastStyles.success,
+        type: "success"
+      }
+    });
+  }
+  showMessageError(text, styles) {
+    this.setState({
+      message: {
+        text,
+        styles: ToastStyles.error,
+        type: "error"
+      }
+    });
+  }
 
   render() {
     return <Toaster message={this.state.message} />;

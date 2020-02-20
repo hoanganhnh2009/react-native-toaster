@@ -5,10 +5,10 @@ import {
   TouchableWithoutFeedback,
   View,
   Text,
-  StatusBar
+  StatusBar,
+  Image
 } from "react-native";
 import ToastStyles from "./ToastStyles";
-
 const noop = () => 0;
 
 class Toast extends Component {
@@ -79,20 +79,41 @@ class Toast extends Component {
     this.hideToast();
     this.props.onPress();
   };
+  getIcons = type => {
+    switch (type) {
+      case "error":
+        return (
+          <Image
+            style={{ width: 30, height: 30, marginRight: 5 }}
+            source={require("./images/error.png")}
+          />
+        );
+      case "success":
+        return (
+          <Image
+            style={{ width: 30, height: 30, marginRight: 5 }}
+            source={require("./images/success.png")}
+          />
+        );
 
+      default:
+        break;
+    }
+  };
   render() {
     const y = this.state.animatedValue.interpolate({
       inputRange: [0, 1],
       outputRange: [-this.props.height, 0]
     });
 
-    const { styles } = this.props;
+    const { styles,type } = this.props;
     let text = this.props.text;
-
+// alert(JSON.stringify(styles))
     if (Object.prototype.toString.call(text) === "[object String]") {
       text = (
-        <View style={styles.container}>
-          <Text style={styles.text}>{text}</Text>
+        <View style={[styles.container, { flexDirection: "row" }]}>
+          {this.getIcons(type)}
+          <Text style={[styles.text, { fontSize: 15 }]}>{text}</Text>
         </View>
       );
     }

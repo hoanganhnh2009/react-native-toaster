@@ -77,7 +77,6 @@ class Toaster extends Component {
 
   onPress = () => {
     const message = this.state.messages[0]
-
     if (message.onPress) {
       message.onPress()
     }
